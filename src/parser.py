@@ -1,11 +1,11 @@
-from time import sleep
+import copy
+import csv
 from datetime import datetime
+from time import sleep
 
 from requests import Session
-import csv
-import copy
 
-from src.models import Product, BaseJSONResponse
+from src.models import BaseJSONResponse, Product
 from src.terminal import Terminal
 
 
