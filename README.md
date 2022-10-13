@@ -43,6 +43,10 @@
 
 `parser = Parser(url)`
 
+Для запуска используйте Docker-compose
+
+`sudo docker-compose up`
+
 ##### Методы парсера
 
 - parse() - парсинг страницы
