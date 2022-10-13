@@ -44,9 +44,12 @@ class Parser:
     def __update_data_from_json(self, json: str):
         self.__save_cache()
 
-        base = BaseJSONResponse.parse_raw(json)
-        data = base.data.products
-        self.__data = copy.copy(data)
+        base = BaseJSONResponse.parse_raw(json)  # create Response Object
+        data = base.get_data()  # extract data from response
+        data.create_url_for_products()  # create url for products in data
+        products = data.get_products()  # get product
+
+        self.__data = copy.copy(products)
 
     def __parse(self):
         try:
@@ -69,11 +72,11 @@ class Parser:
             for el in diff_elements_set:
                 el.print()
 
-    def save_csv(self):
+    def save_csv(self, filepath: str = 'data.csv'):
         if self.__data:
             try:
-                with open('../data.csv', mode='w', encoding='utf-8') as file:
-                    fields = ['id', 'name', 'brand', 'sale', 'priceU', 'salePriceU']
+                with open(filepath, mode='w', encoding='utf-8') as file:
+                    fields = ['id', 'name', 'brand', 'sale', 'priceU', 'salePriceU', 'url']
 
                     writer = csv.DictWriter(file, delimiter=',', lineterminator="\r", fieldnames=fields)
                     writer.writeheader()
@@ -82,12 +85,14 @@ class Parser:
             except BaseException as e:
                 print(f'{Terminal.WARN}Ошибка записи!{Terminal.NORMAL}')
                 print(f'{Terminal.WARN}{e}')
+            else:
+                print(f'{Terminal.INFO}Данные сохранены в {filepath}!{Terminal.NORMAL}\n')
         else:
             print(f'{Terminal.WARN}Нечего сохранять!{Terminal.NORMAL}')
 
-    def load_csv(self, filename: str = 'data.csv'):
+    def load_csv(self, filepath: str = 'data.csv'):
         try:
-            with open(filename, newline='', encoding='utf-8') as file:
+            with open(filepath, newline='', encoding='utf-8') as file:
                 reader = csv.DictReader(file)
                 data = []
                 for row in reader:
@@ -96,8 +101,8 @@ class Parser:
             print(f'{Terminal.WARN}Ошибка чтения файла!{Terminal.NORMAL}')
             print(f'{Terminal.WARN}{e}')
         else:
-            print(f'{Terminal.INFO}Данные загружены из \'{filename}\'!{Terminal.NORMAL}\n')
             self.__data = data
+            print(f'{Terminal.INFO}Данные загружены из \'{filepath}\'!{Terminal.NORMAL}\n')
 
     def print_data(self):
         if self.__data:
