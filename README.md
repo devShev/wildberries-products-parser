@@ -6,7 +6,7 @@
 ------------
 
 
-###Установка и настройка
+### Установка и настройка
 1. Клонируйте репозиторий
 `git clone https://github.com/devShev/wildberries-products-parser.git`
 
@@ -42,6 +42,10 @@
 Для использования необходимо создать экземпляр класса Parser и передать в него наш URL
 
 `parser = Parser(url)`
+
+Для запуска используйте Docker-compose
+
+`sudo docker-compose up`
 
 ##### Методы парсера
 
