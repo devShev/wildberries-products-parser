@@ -3,8 +3,8 @@ import csv
 from datetime import datetime
 from time import sleep
 
-from requests import Session
 from progress.bar import IncrementalBar
+from requests import Session
 
 from src.models import BaseJSONResponse, Product
 from src.terminal import Terminal
