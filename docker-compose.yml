@@ -1,0 +1,13 @@
+version: "3.9"
+
+
+services:
+  parser:
+    build: .
+    container_name: wildberries-parser
+    volumes:
+      - .:/code
+    ports:
+      - "80:80"
+    env_file:
+      - .env
