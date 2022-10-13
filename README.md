@@ -6,7 +6,7 @@
 ------------
 
 
-###Установка и настройка
+### Установка и настройка
 1. Клонируйте репозиторий
 `git clone https://github.com/devShev/wildberries-products-parser.git`
 
